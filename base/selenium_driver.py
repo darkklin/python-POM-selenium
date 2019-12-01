@@ -1,6 +1,3 @@
-import os
-import time
-
 from selenium.webdriver.common.by import By
 from traceback import print_stack
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import utilities.custom_logger as cl
 import logging
+import time
+import os
 
 
 class SeleniumDriver():
@@ -71,17 +70,6 @@ class SeleniumDriver():
                           " and  locatorType: " + locatorType)
         return element
 
-    def elementClick(self, locator, locatorType="id"):
-        try:
-            element = self.getElement(locator, locatorType)
-            element.click()
-            self.log.info("Clicked on element with locator: " + locator +
-                          " locatorType: " + locatorType)
-        except:
-            self.log.info("Cannot click on the element with locator: " + locator +
-                          " locatorType: " + locatorType)
-            print_stack()
-
     def cleanField(self, locator, locatorType="id"):
         try:
             element = self.getElement(locator, locatorType)
@@ -93,9 +81,49 @@ class SeleniumDriver():
                           " locatorType: " + locatorType)
             print_stack()
 
-    def sendKeys(self, data, locator, locatorType="id"):
+    def getElementList(self, locator, locatorType="id"):
+        """
+        Get list of elements
+        """
+        element = None
         try:
-            element = self.getElement(locator, locatorType)
+            locatorType = locatorType.lower()
+            byType = self.getByType(locatorType)
+            element = self.driver.find_elements(byType, locator)
+            self.log.info("Element list found with locator: " + locator +
+                          " and  locatorType: " + locatorType)
+        except:
+            self.log.info("Element list not found with locator: " + locator +
+                          " and  locatorType: " + locatorType)
+        return element
+
+    def elementClick(self, locator="", locatorType="id", element=None):
+        """
+        Click on an element
+        Either provide element or a combination of locator and locatorType
+        """
+        try:
+            if locator:  # This means if locator is not empty
+                element = self.getElement(locator, locatorType)
+            element.click()
+            self.log.info("Clicked on element with locator: " + locator +
+                          " locatorType: " + locatorType)
+        except:
+            self.log.info("Cannot click on the element with locator: " + locator +
+                          " locatorType: " + locatorType)
+            print_stack()
+
+    def frame_switch(self):
+        self.driver.switch_to.frame("__privateStripeFrame8")
+
+    def sendKeys(self, data, locator="", locatorType="id", element=None):
+        """
+        Send keys to an element -> MODIFIED
+        Either provide element or a combination of locator and locatorType
+        """
+        try:
+            if locator:  # This means if locator is not empty
+                element = self.getElement(locator, locatorType)
             element.send_keys(data)
             self.log.info("Sent data on element with locator: " + locator +
                           " locatorType: " + locatorType)
@@ -104,27 +132,84 @@ class SeleniumDriver():
                           " locatorType: " + locatorType)
             print_stack()
 
-    def isElementPresent(self, locator, locatorType="id"):
+    def getText(self, locator="", locatorType="id", element=None, info=""):
+        """
+        Get 'Text' on an element
+        Either provide element or a combination of locator and locatorType
+        """
         try:
-            element = self.getElement(locator, locatorType)
+            if locator:  # This means if locator is not empty
+                self.log.debug("In locator condition")
+                element = self.getElement(locator, locatorType)
+            self.log.debug("Before finding text")
+            text = element.text
+            self.log.debug("After finding element, size is: " + str(len(text)))
+            if len(text) == 0:
+                text = element.get_attribute("innerText")
+            if len(text) != 0:
+                self.log.info("Getting text on element :: " + info)
+                self.log.info("The text is :: '" + text + "'")
+                text = text.strip()
+        except:
+            self.log.error("Failed to get text on element " + info)
+            print_stack()
+            text = None
+        return text
+
+    def isElementPresent(self, locator="", locatorType="id", element=None):
+        """
+        Check if element is present D
+        Either provide element or a combination of locator and locatorType
+        """
+        try:
+            if locator:  # This means if locator is not empty
+                element = self.getElement(locator, locatorType)
             if element is not None:
-                self.log.info("Element Found")
+                self.log.info("Element present with locator: " + locator +
+                              " locatorType: " + locatorType)
                 return True
             else:
-                self.log.info("Element not found")
+                self.log.info("Element not present with locator: " + locator +
+                              " locatorType: " + locatorType)
                 return False
         except:
             print("Element not found")
             return False
 
+    def isElementDisplayed(self, locator="", locatorType="id", element=None):
+        """
+        Check if element is displayed
+        Either provide element or a combination of locator and locatorType
+        """
+        isDisplayed = False
+        try:
+            if locator:  # This means if locator is not empty
+                element = self.getElement(locator, locatorType)
+            if element is not None:
+                isDisplayed = element.is_displayed()
+                self.log.info("Element is displayed with locator: " + locator +
+                              " locatorType: " + locatorType)
+            else:
+                self.log.info("Element not displayed with locator: " + locator +
+                              " locatorType: " + locatorType)
+            return isDisplayed
+        except:
+            print("Element not found")
+            return False
+
     def elementPresenceCheck(self, locator, byType):
+        """
+        Check if element is present
+        """
         try:
             elementList = self.driver.find_elements(byType, locator)
             if len(elementList) > 0:
-                self.log.info("Element Found")
+                self.log.info("Element present with locator: " + locator +
+                              " locatorType: " + str(byType))
                 return True
             else:
-                self.log.info("Element not found")
+                self.log.info("Element not present with locator: " + locator +
+                              " locatorType: " + str(byType))
                 return False
         except:
             self.log.info("Element not found")
@@ -137,20 +222,23 @@ class SeleniumDriver():
             byType = self.getByType(locatorType)
             self.log.info("Waiting for maximum :: " + str(timeout) +
                           " :: seconds for element to be clickable")
-            wait = WebDriverWait(self.driver, 10, poll_frequency=1,
+            wait = WebDriverWait(self.driver, timeout=timeout,
+                                 poll_frequency=pollFrequency,
                                  ignored_exceptions=[NoSuchElementException,
                                                      ElementNotVisibleException,
                                                      ElementNotSelectableException])
-            element = wait.until(EC.element_to_be_clickable((byType,
-                                                             "stopFilter_stops-0")))
+            element = wait.until(EC.element_to_be_clickable((byType, locator)))
             self.log.info("Element appeared on the web page")
         except:
             self.log.info("Element not appeared on the web page")
             print_stack()
         return element
 
-    def verifyTitle(self):
-        if "Let's Kode Itd" in self.getTitle():
-            return True
-        else:
-            return False
+    def webScroll(self, direction="up"):
+        if direction == "up":
+            # Scroll Up
+            self.driver.execute_script("window.scrollBy(0, -1000);")
+
+        if direction == "down":
+            # Scroll Down
+            self.driver.execute_script("window.scrollBy(0, 1000);")
