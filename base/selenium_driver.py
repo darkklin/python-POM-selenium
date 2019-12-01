@@ -114,7 +114,7 @@ class SeleniumDriver():
             print_stack()
 
     def frame_switch(self):
-        self.driver.switch_to.frame("__privateStripeFrame8")
+        self.driver.switch_to.frame("__privateStripeFrame5")
 
     def sendKeys(self, data, locator="", locatorType="id", element=None):
         """
