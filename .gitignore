@@ -1,3 +1,5 @@
 .idea
 venv
 screenshots
+automation.log
+geckodriver.log
