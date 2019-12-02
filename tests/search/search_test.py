@@ -12,7 +12,6 @@ class SearchTest(unittest.TestCase):
     @pytest.fixture(autouse=True)
     def classSetup(self, oneTimeSetUp):
         self.lp = LoginPage(self.driver)
-
         self.sp = SearchPage(self.driver)
         self.ts = TestStatus(self.driver)
 
