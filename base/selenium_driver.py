@@ -74,10 +74,10 @@ class SeleniumDriver():
         try:
             element = self.getElement(locator, locatorType)
             element.clear()
-            self.log.info("Clear the element with locator: " + locator +
+            self.log.info("Clear the text from field with locator: " + locator +
                           " locatorType: " + locatorType)
         except:
-            self.log.info("Cannot clear  the element with locator: " + locator +
+            self.log.info("Cannot clear the text from  locator: " + locator +
                           " locatorType: " + locatorType)
             print_stack()
 
@@ -117,7 +117,7 @@ class SeleniumDriver():
         """
         switch into frame with unic  frame name
         or switch back to the default (don't provide name )
-        can be modify work with not only name if need to ...
+        can be modify to work with not only name if need to ...
         """
 
         try:

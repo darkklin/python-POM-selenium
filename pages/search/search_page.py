@@ -7,7 +7,8 @@ _Expiration_Date = "//*[@id='root']/form/span[2]/span/input"
 _CVC_Code = "//input[@autocomplete='cc-csc']"
 _Postal_Code = "//input[@autocomplete='postal-code']"
 _confirm_purchase = "//label[@for='spc-primary-submit']"
-# JavaScript for beginners
+_logo = "a[class*='logo']"
+
 class SearchPage(BasePage):
     log = cl.customLogger(logging.DEBUG)
 
@@ -36,3 +37,7 @@ class SearchPage(BasePage):
         self.elementClick("agreed_to_terms_checkbox")
         self.util.sleep(5)
         self.elementClick(_confirm_purchase, "xpath")
+        self.webScroll()
+        self.elementClick(_logo,"css")
+
+
