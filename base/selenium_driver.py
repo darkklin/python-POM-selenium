@@ -113,18 +113,27 @@ class SeleniumDriver():
                           " locatorType: " + locatorType)
             print_stack()
 
-    def frame_switch(self,name=""):
-        if name:
-            self.driver.switch_to.frame(name)
-        else:
-            self.driver.switch_to.default_content()
+    def frame_switch(self, name_frame=""):
+        """
+        switch into frame with unic  frame name
+        or switch back to the default (don't provide name )
+        can be modify work with not only name if need to ...
+        """
 
-    def default_frame(self):
-        self.driver.switch_to.default_content()
+        try:
+            if name_frame:  # This means if locator/name is not empty
+                self.driver.switch_to.frame(name_frame)
+                self.log.info("switch into frame with name: " + name_frame)
+            else:
+                self.driver.switch_to.default_content()
+                self.log.info("switch Back to default frame")
+        except:
+            self.log.error("Cannot switch into frame name: " + name_frame)
+            print_stack()
 
     def sendKeys(self, data, locator="", locatorType="id", element=None):
         """
-        Send keys to an element -> MODIFIED
+        Send keys to an element
         Either provide element or a combination of locator and locatorType
         """
         try:
@@ -134,8 +143,8 @@ class SeleniumDriver():
             self.log.info("Sent data on element with locator: " + locator +
                           " locatorType: " + locatorType)
         except:
-            self.log.info("Cannot send data on the element with locator: " + locator +
-                          " locatorType: " + locatorType)
+            self.log.error("Cannot send data on the element with locator: " + locator +
+                           " locatorType: " + locatorType)
             print_stack()
 
     def getText(self, locator="", locatorType="id", element=None, info=""):
@@ -175,11 +184,11 @@ class SeleniumDriver():
                               " locatorType: " + locatorType)
                 return True
             else:
-                self.log.info("Element not present with locator: " + locator +
-                              " locatorType: " + locatorType)
+                self.log.error("Element not present with locator: " + locator +
+                               " locatorType: " + locatorType)
                 return False
         except:
-            print("Element not found")
+            self.log.error("Element not found")
             return False
 
     def isElementDisplayed(self, locator="", locatorType="id", element=None):
@@ -196,11 +205,11 @@ class SeleniumDriver():
                 self.log.info("Element is displayed with locator: " + locator +
                               " locatorType: " + locatorType)
             else:
-                self.log.info("Element not displayed with locator: " + locator +
-                              " locatorType: " + locatorType)
+                self.log.error("Element not displayed with locator: " + locator +
+                               " locatorType: " + locatorType)
             return isDisplayed
         except:
-            print("Element not found")
+            self.log.error("Element not found")
             return False
 
     def elementPresenceCheck(self, locator, byType):
@@ -214,11 +223,11 @@ class SeleniumDriver():
                               " locatorType: " + str(byType))
                 return True
             else:
-                self.log.info("Element not present with locator: " + locator +
-                              " locatorType: " + str(byType))
+                self.log.error("Element not present with locator: " + locator +
+                               " locatorType: " + str(byType))
                 return False
         except:
-            self.log.info("Element not found")
+            self.log.error("Element not found")
             return False
 
     def waitForElement(self, locator, locatorType="id",
@@ -236,7 +245,7 @@ class SeleniumDriver():
             element = wait.until(EC.element_to_be_clickable((byType, locator)))
             self.log.info("Element appeared on the web page")
         except:
-            self.log.info("Element not appeared on the web page")
+            self.log.error("Element not appeared on the web page")
             print_stack()
         return element
 

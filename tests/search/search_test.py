@@ -16,6 +16,7 @@ class SearchTest(unittest.TestCase):
         self.ts = TestStatus(self.driver)
 
     @pytest.mark.run(order=1)
-    def test_search(self):
+    def test_pushCourse(self):
         self.lp.login("test@email.com", "abcabc")
-        self.sp.searchCourse()
+        self.sp.searchCourse("JavaScript for beginners")
+        self.sp.fillCreditCard("3333333222324235", "222", "0520")
