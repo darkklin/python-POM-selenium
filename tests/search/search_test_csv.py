@@ -1,6 +1,6 @@
 import unittest
 import pytest
-from pages.home.login_page import LoginPage
+from pages.home.navigation_page import NavigationPage
 from pages.search.search_page import SearchPage
 from utilities.teststatus import TestStatus
 from ddt import ddt, data, unpack
@@ -15,6 +15,10 @@ class SearchTest(unittest.TestCase):
     def classSetup(self, oneTimeSetUp):
         self.sp = SearchPage(self.driver)
         self.ts = TestStatus(self.driver)
+        self.nav = NavigationPage(self.driver)
+
+    def setUp(self):
+        self.nav.navigateToAllCourses()
 
     @pytest.mark.run(order=1)
     @data(*getCVSData("..\\testdata.csv"))

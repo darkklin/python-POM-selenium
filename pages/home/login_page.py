@@ -17,7 +17,7 @@ class LoginPage(BasePage):
     _login_button = "commit"
 
     def clickLoginLink(self):
-        self.elementClick(self._login_link, locatorType="link")
+        self.click(self._login_link, locatorType="link")
 
     def enterEmail(self, email):
         self.sendKeys(email, self._email_field)
@@ -26,7 +26,7 @@ class LoginPage(BasePage):
         self.sendKeys(password, self._password_field)
 
     def clickLoginButton(self):
-        self.elementClick(self._login_button, locatorType="name")
+        self.click(self._login_button, locatorType="name")
 
     def login(self, email="", password=""):
         self.clickLoginLink()

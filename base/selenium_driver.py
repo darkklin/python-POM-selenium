@@ -97,7 +97,7 @@ class SeleniumDriver():
                           " and  locatorType: " + locatorType)
         return element
 
-    def elementClick(self, locator="", locatorType="id", element=None):
+    def click(self, locator="", locatorType="id", element=None):
         """
         Click on an element
         Either provide element or a combination of locator and locatorType
@@ -109,9 +109,9 @@ class SeleniumDriver():
             self.log.info("Clicked on element with locator: " + locator +
                           " locatorType: " + locatorType)
         except:
-            self.log.info("Cannot click on the element with locator: " + locator +
-                          " locatorType: " + locatorType)
-            print_stack()
+            self.log.error("Cannot click on the element with locator: " + locator +
+                           " locatorType: " + locatorType)
+            assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
 
     def frame_switch(self, name_frame=""):
         """
@@ -129,7 +129,7 @@ class SeleniumDriver():
                 self.log.info("switch Back to default frame")
         except:
             self.log.error("Cannot switch into frame name: " + name_frame)
-            print_stack()
+            assert False, "no such frame: Unable to locate frame with name :" + name_frame
 
     def sendKeys(self, data, locator="", locatorType="id", element=None):
         """
@@ -145,7 +145,7 @@ class SeleniumDriver():
         except:
             self.log.error("Cannot send data on the element with locator: " + locator +
                            " locatorType: " + locatorType)
-            print_stack()
+            assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
 
     def getText(self, locator="", locatorType="id", element=None, info=""):
         """
@@ -167,8 +167,7 @@ class SeleniumDriver():
                 text = text.strip()
         except:
             self.log.error("Failed to get text on element " + info)
-            print_stack()
-            text = None
+            assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
         return text
 
     def isElementPresent(self, locator="", locatorType="id", element=None):
@@ -246,7 +245,8 @@ class SeleniumDriver():
             self.log.info("Element appeared on the web page")
         except:
             self.log.error("Element not appeared on the web page")
-            print_stack()
+            assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
+
         return element
 
     def webScroll(self, direction="up"):

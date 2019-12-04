@@ -18,9 +18,9 @@ class SearchPage(BasePage):
 
     def searchCourse(self, name_course):
         self.sendKeys(name_course, "search-courses")
-        self.elementClick("search-course-button")
-        self.elementClick("//div[contains(text(),'"+name_course+"')]", locatorType="xpath")
-        self.elementClick("enroll-button-top")
+        self.click("search-course-buttoNn")
+        self.click("//div[contains(text(),'"+name_course+"')]", locatorType="xpath")
+        self.click("enroll-button-top")
         self.webScroll("down")
 
     def fillCreditCard(self, card_number, cvc, exp_date):
@@ -34,10 +34,8 @@ class SearchPage(BasePage):
         self.frame_switch('__privateStripeFrame8')
         self.sendKeys("123454", _Postal_Code, "xpath")
         self.frame_switch()
-        self.elementClick("agreed_to_terms_checkbox")
-        self.util.sleep(5)
-        self.elementClick(_confirm_purchase, "xpath")
-        self.webScroll()
-        self.elementClick(_logo,"css")
+        self.click("agreed_to_terms_checkbox")
+        self.util.sleep(2)
+        self.click(_confirm_purchase, "xpath")
 
 

@@ -1,0 +1,5 @@
+selenium==3.141.0
+pytest==5.3.1
+pytest-cov==2.8.1
+pytest-html==2.0.1
+pytest-clarity==0.2.0a1

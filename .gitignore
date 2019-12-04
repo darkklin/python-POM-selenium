@@ -3,3 +3,5 @@ venv
 screenshots
 automation.log
 geckodriver.log
+.pytest_cache
+__pycache__
