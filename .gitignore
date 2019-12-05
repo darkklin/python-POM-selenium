@@ -7,3 +7,4 @@ geckodriver.log
 __pycache__
 test-report.html
 .coverage
+my_allure_results

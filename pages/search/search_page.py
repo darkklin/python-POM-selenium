@@ -9,6 +9,7 @@ _Postal_Code = "//input[@autocomplete='postal-code']"
 _confirm_purchase = "//label[@for='spc-primary-submit']"
 _logo = "a[class*='logo']"
 
+
 class SearchPage(BasePage):
     log = cl.customLogger(logging.DEBUG)
 
@@ -19,7 +20,7 @@ class SearchPage(BasePage):
     def searchCourse(self, name_course):
         self.sendKeys(name_course, "search-courses")
         self.click("search-course-buttoNn")
-        self.click("//div[contains(text(),'"+name_course+"')]", locatorType="xpath")
+        self.click("//div[contains(text(),'" + name_course + "')]", locatorType="xpath")
         self.click("enroll-button-top")
         self.webScroll("down")
 
@@ -37,5 +38,3 @@ class SearchPage(BasePage):
         self.click("agreed_to_terms_checkbox")
         self.util.sleep(2)
         self.click(_confirm_purchase, "xpath")
-
-

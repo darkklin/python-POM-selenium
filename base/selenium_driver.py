@@ -4,6 +4,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import utilities.custom_logger as cl
+from allure_commons.types import AttachmentType
+
 import logging
 import time
 import os
@@ -111,7 +113,8 @@ class SeleniumDriver():
         except:
             self.log.error("Cannot click on the element with locator: " + locator +
                            " locatorType: " + locatorType)
-            assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
+            self.screenShot("Click Fail")
+            assert False, "Fail to click on:" + locator + " locatorType: " + locatorType
 
     def frame_switch(self, name_frame=""):
         """
