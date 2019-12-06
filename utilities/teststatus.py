@@ -7,6 +7,9 @@ It provides functionality to assert the result
 Example:
     self.check_point.markFinal("Test Name", result, "Message")
 """
+import allure
+from allure_commons.types import AttachmentType
+
 import utilities.custom_logger as cl
 import logging
 from base.selenium_driver import SeleniumDriver
@@ -32,11 +35,14 @@ class TestStatus(SeleniumDriver):
                 else:
                     self.resultList.append("FAIL")
                     self.log.error("### VERIFICATION FAILED :: + " + resultMessage)
-                    self.screenShot(resultMessage)
+                    allure.attach.file(self.screenShot(resultMessage), name="Screenshot setResult fail",
+                                       attachment_type=AttachmentType.PNG)
+
             else:
                 self.resultList.append("FAIL")
                 self.log.error("### VERIFICATION FAILED :: + " + resultMessage)
-                self.screenShot(resultMessage)
+                allure.attach.file(self.screenShot(resultMessage), name="Screenshot setResult fail",
+                                   attachment_type=AttachmentType.PNG)
 
         except:
             self.resultList.append("FAIL")

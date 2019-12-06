@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from traceback import print_stack
 from selenium.webdriver.support.ui import WebDriverWait
@@ -33,6 +34,8 @@ class SeleniumDriver():
                 os.makedirs(destinationDirectory)
             self.driver.save_screenshot(destinationFile)
             self.log.info("Screenshot save to directory: " + destinationFile)
+            # return destination file to be able to attach the screen shot to allure report
+            return destinationFile
         except:
             self.log.error("### Exception Occurred when taking screenshot")
             print_stack()
@@ -113,7 +116,7 @@ class SeleniumDriver():
         except:
             self.log.error("Cannot click on the element with locator: " + locator +
                            " locatorType: " + locatorType)
-            self.screenShot("Click Fail")
+            allure.attach.file(self.screenShot("Click-Fail"), name="Screenshot click fail", attachment_type=AttachmentType.PNG)
             assert False, "Fail to click on:" + locator + " locatorType: " + locatorType
 
     def frame_switch(self, name_frame=""):
@@ -148,6 +151,7 @@ class SeleniumDriver():
         except:
             self.log.error("Cannot send data on the element with locator: " + locator +
                            " locatorType: " + locatorType)
+            allure.attach.file(self.screenShot("sendKeys"), name="Screenshot sendKeys fail", attachment_type=AttachmentType.PNG)
             assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
 
     def getText(self, locator="", locatorType="id", element=None, info=""):
@@ -170,6 +174,7 @@ class SeleniumDriver():
                 text = text.strip()
         except:
             self.log.error("Failed to get text on element " + info)
+            allure.attach.file(self.screenShot("getText"), name="Screenshot getText fail", attachment_type=AttachmentType.PNG)
             assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
         return text
 
@@ -248,6 +253,7 @@ class SeleniumDriver():
             self.log.info("Element appeared on the web page")
         except:
             self.log.error("Element not appeared on the web page")
+            allure.attach.file(self.screenShot("waitForElement"), name="Screenshot waitForElement fail", attachment_type=AttachmentType.PNG)
             assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
 
         return element

@@ -1,4 +1,6 @@
 import unittest
+
+import allure
 import pytest
 
 from pages.home.login_page import LoginPage
