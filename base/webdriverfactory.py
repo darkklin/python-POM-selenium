@@ -8,8 +8,10 @@ Example:
     wdf = WebDriverFactory(browser)
     wdf.getWebDriverInstance()
 """
-import traceback
+import warnings
+
 from selenium import webdriver
+
 
 class WebDriverFactory():
 
@@ -21,15 +23,7 @@ class WebDriverFactory():
             None
         """
         self.browser = browser
-    """
-        Set chrome driver and iexplorer environment based on OS
-
-        chromedriver = "C:/.../chromedriver.exe"
-        os.environ["webdriver.chrome.driver"] = chromedriver
-        self.driver = webdriver.Chrome(chromedriver)
-
-        PREFERRED: Set the path on the machine where browser will be executed
-    """
+        warnings.simplefilter("ignore", ResourceWarning)
 
     def getWebDriverInstance(self):
         """
@@ -38,17 +32,18 @@ class WebDriverFactory():
         Returns:
             'WebDriver Instance'
         """
+        selenium_grid_url = "http://192.168.10.39:4444/wd/hub"
         baseURL = "https://letskodeit.teachable.com/"
-        if self.browser == "iexplorer":
-            # Set ie driver
-            driver = webdriver.Ie()
-        elif self.browser == "firefox":
-            driver = webdriver.Firefox(executable_path="C:\\geckodriver")
-        elif self.browser == "chrome":
-            # Set chrome driver
-            driver = webdriver.Chrome()
+
+        if self.browser:
+            driver = webdriver.Remote(
+                command_executor=selenium_grid_url,
+                desired_capabilities={
+                    'browserName': self.browser,
+                }
+            )
         else:
-            driver = webdriver.Firefox()
+            driver = webdriver.Firefox(executable_path="C:\\geckodriver")
         # Setting Driver Implicit Time out for An Element
         driver.implicitly_wait(3)
         # Maximize the window

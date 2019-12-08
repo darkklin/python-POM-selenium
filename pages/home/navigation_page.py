@@ -3,13 +3,6 @@ import logging
 from base.basepage import BasePage
 
 
-# Locators
-_logo = "a[class*='logo']"
-_my_courses = "My Courses"
-_all_courses = "All Courses"
-_practice = "Practice"
-_user_settings_icon = "//div[@id='navbar']//li[@class='dropdown']"
-
 class NavigationPage(BasePage):
     log = cl.customLogger(logging.DEBUG)
 
@@ -18,14 +11,24 @@ class NavigationPage(BasePage):
         self.driver = driver
 
     # Locators
+    _logo = "a[class*='logo']"
     _my_courses = "My Courses"
     _all_courses = "All Courses"
     _practice = "Practice"
     _user_settings_icon = "//div[@id='navbar']//li[@class='dropdown']"
+    _log_out = "a[href*='out']"
+    _icon = "img[class='gravatar']"
 
     def navigateToAllCourses(self):
-        self.click(_logo,"css")
+        self.click(self._logo, "css")
         self.click(self._all_courses, locatorType="link")
+
+    def navigateToHome(self):
+        self.click(self._logo, "css")
+
+    def logOut(self):
+        self.click(self._icon, "css")
+        self.click(self._log_out, locatorType="css")
 
     def navigateToMyCourses(self):
         self.click(locator=self._my_courses, locatorType="link")
@@ -37,4 +40,4 @@ class NavigationPage(BasePage):
         userSettingsElement = self.waitForElement(locator=self._user_settings_icon,
                                                   locatorType="xpath", pollFrequency=1)
         self.click(locator=self._user_settings_icon,
-                          locatorType="xpath")
+                   locatorType="xpath")

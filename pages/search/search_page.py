@@ -19,7 +19,7 @@ class SearchPage(BasePage):
 
     def searchCourse(self, name_course):
         self.sendKeys(name_course, "search-courses")
-        self.click("search-course-buttoNn")
+        self.click("search-course-button")
         self.click("//div[contains(text(),'" + name_course + "')]", locatorType="xpath")
         self.click("enroll-button-top")
         self.webScroll("down")

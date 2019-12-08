@@ -1,6 +1,7 @@
 import utilities.custom_logger as cl
 import logging
 from base.basepage import BasePage
+from pages.home.navigation_page import NavigationPage
 
 
 class LoginPage(BasePage):
@@ -9,6 +10,8 @@ class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
+        self.nav = NavigationPage(driver)
+
 
     # Locators
     _login_link = "Login"
@@ -35,6 +38,8 @@ class LoginPage(BasePage):
         self.cleanField(self._password_field)
         self.enterPassword(password)
         self.clickLoginButton()
+
+
 
     def verifyLoginSuccessful(self):
         result = self.isElementPresent("//*[@id='navbar']//img[@alt='test@email.com']",

@@ -1,3 +1,5 @@
+import warnings
+
 import pytest
 from base.webdriverfactory import WebDriverFactory
 from pages.home.login_page import LoginPage
@@ -5,6 +7,7 @@ from pages.home.login_page import LoginPage
 @pytest.yield_fixture()
 def setUp():
     print("Running method level setUp")
+    warnings.simplefilter("ignore", ResourceWarning)
     yield
     print("Running method level tearDown")
 
@@ -14,6 +17,7 @@ def oneTimeSetUp(request, browser):
     print("Running one time setUp")
     wdf = WebDriverFactory(browser)
     driver = wdf.getWebDriverInstance()
+
     lp = LoginPage(driver)
     lp.login("test@email.com", "abcabc")
 
