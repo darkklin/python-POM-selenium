@@ -1,8 +1,6 @@
 import unittest
-import warnings
-
 import pytest
-from pages.home.navigation_page import NavigationPage
+from pages.home.navigation_page import NavigationPages
 from pages.search.search_page import SearchPage
 from utilities.teststatus import TestStatus
 from ddt import ddt, data, unpack
@@ -10,13 +8,13 @@ from utilities.read_data import getCVSData
 
 @pytest.mark.usefixtures("oneTimeSetUp", "setUp")
 @ddt
-class SearchTest(unittest.TestCase):
+class SearchTest1Two(unittest.TestCase):
 
     @pytest.fixture(autouse=True)
     def classSetup(self, oneTimeSetUp):
         self.sp = SearchPage(self.driver)
         self.ts = TestStatus(self.driver)
-        self.nav = NavigationPage(self.driver)
+        self.nav = NavigationPages(self.driver)
 
     def setUp(self):
         self.nav.navigateToAllCourses()

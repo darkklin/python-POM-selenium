@@ -3,7 +3,7 @@ import logging
 from base.basepage import BasePage
 
 
-class NavigationPage(BasePage):
+class NavigationPages(BasePage):
     log = cl.customLogger(logging.DEBUG)
 
     def __init__(self, driver):
@@ -27,7 +27,7 @@ class NavigationPage(BasePage):
         self.click(self._logo, "css")
 
     def logOut(self):
-        self.click(self._icon, "css")
+        self.click(self._icon, locatorType="css")
         self.click(self._log_out, locatorType="css")
 
     def navigateToMyCourses(self):

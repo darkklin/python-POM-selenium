@@ -1,5 +1,5 @@
 from pages.home.login_page import LoginPage
-from pages.home.navigation_page import NavigationPage
+from pages.home.navigation_page import NavigationPages
 from utilities.teststatus import TestStatus
 from utilities.util import Util
 import unittest
@@ -12,7 +12,7 @@ class LoginTests(unittest.TestCase):
     def classSetup(self, oneTimeSetUp):
         self.lp = LoginPage(self.driver)
         self.ts = TestStatus(self.driver)
-        self.nav = NavigationPage(self.driver)
+        self.nav = NavigationPages(self.driver)
 
 
     @pytest.mark.run(order=1)
