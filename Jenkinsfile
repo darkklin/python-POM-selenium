@@ -9,6 +9,7 @@ pipeline {
                 }
             }
             steps {
+                 sh 'sudo python --version'
             }
         }
         stage('Build Image') {
