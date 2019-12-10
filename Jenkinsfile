@@ -7,14 +7,13 @@ node {
       sh 'docker build -t darkklin/python-pom-selenium .'
     }
 	 stage('Deploy'){
-        steps {
-            script {
+        script {
 			    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 			        	app.push("${BUILD_NUMBER}")
 			            app.push("latest")
 			        }
                 }
-            }
+            
     }
 	
   }
