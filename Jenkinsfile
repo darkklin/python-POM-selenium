@@ -6,7 +6,7 @@ node {
     stage('Deploy'){
       sh 'docker build -t darkklin/python-pom-selenium .'
     }
-	 stage('Deploy'){
+	 stage('Push Image'){
         script {
 			    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 			        	app.push("${BUILD_NUMBER}")
