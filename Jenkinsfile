@@ -4,7 +4,7 @@ node {
       checkout scm
     }
     stage('Deploy'){
-      sh 'docker build -t python-POM-selenium .'
+      sh 'docker build -t python-pom-selenium .'
     }
   }
   catch (err) {
