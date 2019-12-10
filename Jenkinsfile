@@ -15,7 +15,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                	app = docker.build("darkklin/getcryptotests")
+                	app = docker.build("darkklin/python-POM-selenium")
                 }
             }
         }
