@@ -4,8 +4,19 @@ node {
       checkout scm
     }
     stage('Deploy'){
-      sh 'docker build -t python-pom-selenium .'
+      sh 'docker build -t darkklin/python-pom-selenium .'
     }
+	 stage('Deploy'){
+        steps {
+            script {
+			    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+			        	app.push("${BUILD_NUMBER}")
+			            app.push("latest")
+			        }
+                }
+            }
+    }
+	
   }
   catch (err) {
     throw err
