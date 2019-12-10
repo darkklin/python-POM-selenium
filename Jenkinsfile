@@ -1,17 +1,10 @@
 pipeline {
     agent none
     stages {
-        stage('Build Jar') {
-            agent {
-                docker {
-                    image 'python:3.8.0-slim-buster'
-                }
-            }
-        }
         stage('Build Image') {
             steps {
                 script {
-                	app = docker.build("darkklin/getcryptotests")
+                	app = docker.build("darkklin/python-POM-selenium")
                 }
             }
         }
