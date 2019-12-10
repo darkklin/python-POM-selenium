@@ -20,7 +20,7 @@ class SearchTest1Two(unittest.TestCase):
         self.nav.navigateToAllCourses()
 
     @pytest.mark.run(order=1)
-    @data(*getCVSData("..\\testdata.csv"))
+    @data(*getCVSData("..//testdata.csv"))
     @unpack
     def test_pushCourse(self, courseName, ccNum, ccExp, ccCVV):
         self.sp.searchCourse(courseName)
