@@ -4,7 +4,7 @@ node {
       checkout scm
     }
     stage('Deploy'){
-      sh 'docker build -t darkklin/python-pom-selenium .'
+      app = docker.build("darkklin/python-pom-selenium")
     }
 	 stage('Push Image'){
         script {
