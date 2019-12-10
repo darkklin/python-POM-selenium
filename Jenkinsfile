@@ -8,11 +8,13 @@ pipeline {
                     args '-v $HOME/Python:/root/Python'
                 }
             }
+            steps {
+            }
         }
         stage('Build Image') {
             steps {
                 script {
-                	app = docker.build("darkklin/python-POM-selenium")
+                	app = docker.build("darkklin/getcryptotests")
                 }
             }
         }
