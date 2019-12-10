@@ -1,6 +1,14 @@
 pipeline {
     agent none
     stages {
+        stage('Build Jar') {
+            agent {
+                docker {
+                    image 'python:3.8.0-slim-buster'
+                    args '-v $HOME/Python:/root/Python'
+                }
+            }
+        }
         stage('Build Image') {
             steps {
                 script {
