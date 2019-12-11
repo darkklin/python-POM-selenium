@@ -8,3 +8,4 @@ __pycache__
 test-report.html
 .coverage
 my_allure_results
+runner
