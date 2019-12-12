@@ -8,7 +8,7 @@ from utilities.read_data import getCVSData
 
 @pytest.mark.usefixtures("oneTimeSetUp", "setUp")
 @ddt
-class SearchTest1Two(unittest.TestCase):
+class TestSearchCsv(unittest.TestCase):
 
     @pytest.fixture(autouse=True)
     def classSetup(self, oneTimeSetUp):

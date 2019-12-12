@@ -38,8 +38,6 @@ class SeleniumDriver():
             return destinationFile
         except:
             self.log.error("### Exception Occurred when taking screenshot")
-            print_stack()
-
     def getTitle(self):
         return self.driver.title
 

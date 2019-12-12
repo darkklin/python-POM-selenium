@@ -40,6 +40,7 @@ class WebDriverFactory():
                 command_executor=selenium_grid_url,
                 desired_capabilities={
                     'browserName': self.browser,
+                    'name':"dsad",
                 }
             )
         else:

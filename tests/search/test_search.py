@@ -10,7 +10,7 @@ from ddt import ddt, data, unpack
 
 @pytest.mark.usefixtures("oneTimeSetUp", "setUp")
 @ddt
-class SearchTest(unittest.TestCase):
+class TestSearch(unittest.TestCase):
 
     @pytest.fixture(autouse=True)
     def classSetup(self, oneTimeSetUp):
