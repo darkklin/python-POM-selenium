@@ -18,13 +18,20 @@ class NavigationPages(BasePage):
     _user_settings_icon = "//div[@id='navbar']//li[@class='dropdown']"
     _log_out = "a[href*='out']"
     _icon = "img[class='gravatar']"
-
+    _login_link = "Login"
+    _forgot_Password = "Forgot Password?"
     def navigateToAllCourses(self):
         self.click(self._logo, "css")
         self.click(self._all_courses, locatorType="link")
 
     def navigateToHome(self):
         self.click(self._logo, "css")
+
+    def forgetPassword(self):
+        self.click(self._login_link, locatorType="link")
+        self.click(self._forgot_Password, locatorType="link")
+
+
 
     def logOut(self):
         self.click(self._icon, locatorType="css")

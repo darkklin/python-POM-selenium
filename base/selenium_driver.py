@@ -82,7 +82,6 @@ class SeleniumDriver():
         except:
             self.log.info("Cannot clear the text from  locator: " + locator +
                           " locatorType: " + locatorType)
-            print_stack()
 
     def getElementList(self, locator, locatorType="id"):
         """

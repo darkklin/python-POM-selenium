@@ -41,3 +41,19 @@ class BasePage(SeleniumDriver):
             self.log.error("Failed to get page title")
             print_stack()
             return False
+    def verifyText(self, textToVerify):
+        """
+        Verify the page Title
+
+        Parameters:
+            titleToVerify: Title on the page that needs to be verified
+        """
+        try:
+            actualTitle = self.getText("h1",locatorType="css")
+            print(actualTitle)
+            return self.util.verifyTextContains(actualTitle, textToVerify)
+        except:
+            self.log.error("Failed to get page title")
+            print_stack()
+            return False
+
