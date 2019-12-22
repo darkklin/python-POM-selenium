@@ -48,7 +48,6 @@ class TestStatus(SeleniumDriver):
             self.resultList.append("FAIL")
             self.log.error("### Exception Occurred !!!")
             self.screenShot(resultMessage)
-            print_stack()
 
 
     def mark(self, result, resultMessage):

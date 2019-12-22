@@ -78,13 +78,14 @@ class Util(object):
             expectedList: Expected Text
             actualList: Actual Text
         """
+        print("**"*20)
         self.log.info("Actual Text From Application Web UI --> :: " + actualText)
         self.log.info("Expected Text From Application Web UI --> :: " + expectedText)
         if expectedText.lower() in actualText.lower():
             self.log.info("### VERIFICATION CONTAINS !!!")
             return True
         else:
-            self.log.info("### VERIFICATION DOES NOT CONTAINS !!!")
+            self.log.error("### VERIFICATION DOES NOT CONTAINS !!!")
             return False
 
     def verifyTextMatch(self, actualText, expectedText):

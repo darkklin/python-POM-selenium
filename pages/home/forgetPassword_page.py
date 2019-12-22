@@ -20,5 +20,5 @@ class ForgetPassword(BasePage):
     def resetPassword(self,email):
         self.sendKeys(email,_forgetPassword,locatorType="css")
 
-    def verifyTitle(self):
-        return self.verifyText("Reset Passworddsadasd")
+    # def verifyTitle(self):
+    #     return self.verifyText("Reset Password")

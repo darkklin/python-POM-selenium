@@ -1,14 +1,21 @@
+import time
+
 import utilities.custom_logger as cl
 import logging
 from base.basepage import BasePage
+# from utilities.util import Util
+from utilities import util
+from utilities.util import Util
 
 
 class NavigationPages(BasePage):
     log = cl.customLogger(logging.DEBUG)
 
+    # ut = Util.verifyTextMatch()
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
+        self.util = Util()
 
     # Locators
     _logo = "a[class*='logo']"
@@ -20,6 +27,9 @@ class NavigationPages(BasePage):
     _icon = "img[class='gravatar']"
     _login_link = "Login"
     _forgot_Password = "Forgot Password?"
+    _page_title = "//div[@class='content-box']//h1"
+    _forgot_Password_btn = "input[value='Send Me Instructions']"
+
     def navigateToAllCourses(self):
         self.click(self._logo, "css")
         self.click(self._all_courses, locatorType="link")
@@ -27,10 +37,16 @@ class NavigationPages(BasePage):
     def navigateToHome(self):
         self.click(self._logo, "css")
 
-    def forgetPassword(self):
+    def nevigateToforgetPassword(self):
         self.click(self._login_link, locatorType="link")
         self.click(self._forgot_Password, locatorType="link")
+        self.waitForElement(self._forgot_Password_btn, locatorType="css")
+        text = self.getText(self._page_title, locatorType="xpath")
+        print(text)
+        print(self.util.verifyTextContains(text,"Reset Passwordf"))
 
+
+        assert self.util.verifyTextContains(text,"Reset Passwordf")
 
 
     def logOut(self):

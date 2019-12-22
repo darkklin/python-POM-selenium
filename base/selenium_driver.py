@@ -1,6 +1,10 @@
+import contextlib
+
 import allure
 from selenium.webdriver.common.by import By
 from traceback import print_stack
+
+from selenium.webdriver.support.expected_conditions import staleness_of
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
@@ -175,6 +179,8 @@ class SeleniumDriver():
             assert False, "no such element: Unable to locate element:" + locator + " locatorType: " + locatorType
         return text
 
+
+
     def isElementPresent(self, locator="", locatorType="id", element=None):
         """
         Check if element is present D
@@ -263,3 +269,19 @@ class SeleniumDriver():
         if direction == "down":
             # Scroll Down
             self.driver.execute_script("window.scrollBy(0, 1000);")
+
+    def page_has_loaded(self):
+        self.log.info("Checking if {} page is loaded.".format(self.driver.current_url))
+        page_state = self.driver.execute_script('return document.readyState;')
+        return page_state == 'complete'
+
+    def wait_loading(self):
+        wait_time = 0
+        while self.driver.execute_script('return document.readyState;') != 'complete' and wait_time < 10:
+            # Scroll down to bottom to load contents, unnecessary for everyone
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            wait_time += 0.1
+            time.sleep(0.1)
+        print('Load Complete.')
+
+

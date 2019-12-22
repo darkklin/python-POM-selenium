@@ -14,6 +14,7 @@ from base.selenium_driver import SeleniumDriver
 from traceback import print_stack
 from utilities.util import Util
 
+
 class BasePage(SeleniumDriver):
 
     def __init__(self, driver):
@@ -41,19 +42,12 @@ class BasePage(SeleniumDriver):
             self.log.error("Failed to get page title")
             print_stack()
             return False
-    def verifyText(self, textToVerify):
-        """
-        Verify the page Title
 
-        Parameters:
-            titleToVerify: Title on the page that needs to be verified
-        """
+    def verifyText(self, textToVerify, textIs):
+
+
         try:
-            actualTitle = self.getText("h1",locatorType="css")
-            print(actualTitle)
-            return self.util.verifyTextContains(actualTitle, textToVerify)
+            return self.util.verifyTextContains(textIs, textToVerify)
         except:
-            self.log.error("Failed to get page title")
-            print_stack()
-            return False
-
+            self.log.error("Text should be "+textToVerify+" actual text is " + textIs )
+            assert False
