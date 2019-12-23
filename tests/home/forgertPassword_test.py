@@ -16,11 +16,9 @@ class LoginTests(unittest.TestCase):
         self.ts = TestStatus(self.driver)
         self.nav = NavigationPages(self.driver)
 
-
-
-    def test_forgetPassword(self):
+    def test_forgetInvalidPassword(self):
         self.nav.logOut()
-        self.nav.nevigateToforgetPassword()
-
-
-
+        self.nav.navigateToforgetPassword()
+        self.fp.resetPassword("hdghsadhasd@sadasdsa.com")
+        self.ts.markFinal("test_forgetInvalidPassword", self.fp.verifyResetPasswordFail(),
+                          "invalid notification test pass")

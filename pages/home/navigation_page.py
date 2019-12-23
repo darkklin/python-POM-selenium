@@ -37,17 +37,12 @@ class NavigationPages(BasePage):
     def navigateToHome(self):
         self.click(self._logo, "css")
 
-    def nevigateToforgetPassword(self):
+    def navigateToforgetPassword(self):
         self.click(self._login_link, locatorType="link")
         self.click(self._forgot_Password, locatorType="link")
         self.waitForElement(self._forgot_Password_btn, locatorType="css")
         text = self.getText(self._page_title, locatorType="xpath")
-        print(text)
-        print(self.util.verifyTextContains(text,"Reset Passwordf"))
-
-
-        assert self.util.verifyTextContains(text,"Reset Passwordf")
-
+        assert self.util.verifyTextContains(text, "Reset Password")
 
     def logOut(self):
         self.click(self._icon, locatorType="css")

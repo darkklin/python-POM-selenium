@@ -45,9 +45,8 @@ class BasePage(SeleniumDriver):
 
     def verifyText(self, textToVerify, textIs):
 
-
         try:
             return self.util.verifyTextContains(textIs, textToVerify)
         except:
             self.log.error("Text should be "+textToVerify+" actual text is " + textIs )
-            assert False
+            return False
