@@ -9,7 +9,7 @@ from pages.home.navigation_page import NavigationPages
 _forgetPassword = "input[class*='email']";
 
 
-class ForgetPassword(BasePage):
+class ForgetPasswordPage(BasePage):
     log = cl.customLogger(logging.DEBUG)
 
     _forgetPassword = "input[class*='email']";
